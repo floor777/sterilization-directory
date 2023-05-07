@@ -1,0 +1,26 @@
+{
+  "name": "childfree-social-club",
+  "version": "1.0.0",
+  "description": "A website for the childfree by the childfree",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/floor777/childfree-social-club.git"
+  },
+  "author": "Josue Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/floor777/childfree-social-club/issues"
+  },
+  "homepage": "https://github.com/floor777/childfree-social-club#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
