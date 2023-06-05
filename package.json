@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "love": "nodemon ./models/user.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,20 @@
   },
   "homepage": "https://github.com/floor777/childfree-social-club#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "argon2": "^0.30.3",
+    "argon2id": "^1.0.0",
+    "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
+    "cls-hooked": "^4.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.31.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
