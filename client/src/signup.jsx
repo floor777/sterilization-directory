@@ -3,6 +3,13 @@ import './login.css'
 import React from 'react';
 import axios from 'axios';
 
+const getUser = () => {
+  axios({
+    method: "get",
+    withCredentials: true,
+    url: "http://localhost:3000/currentuser"
+  })
+};
 
 function Signup() { 
     const [signupEmail, setSignupEmail] = useState("");
@@ -23,15 +30,6 @@ function Signup() {
               
       })
       .then(res => console.log(res));
-    };
-    const getUser = () => {
-      // axios({
-      //   method: "get",
-      //   withCredentials: true,
-      //   url: "http://localhost:3000/signup"
-        
-      // },
-      // )
     };
 
   return (
