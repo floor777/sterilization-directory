@@ -3,12 +3,34 @@ import './login.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
-const login = () => {};
-const getUser = () => {};
+import { redirect } from 'react-router-dom';
+import axios from 'axios';
+
+const getUser = () => {
+  axios({
+    method: "get",
+    withCredentials: true,
+    url: "http://localhost:3000/currentuser"
+  });
+};
 
 function Login() { 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    const login = () => {
+
+      axios({
+        method: "post",
+        data: {
+          email: loginEmail,
+          password: loginPassword,
+        },
+        withCredentials: true,
+        url: "http://localhost:3000/login"
+              
+      })
+      .then(res => console.log(res));
+    };
 
   return (
     <>
