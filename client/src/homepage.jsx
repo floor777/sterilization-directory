@@ -14,7 +14,7 @@ function Homepage() {
 
       <nav className='navbar'>
       {/* <img src='./src/assets/react.svg'></img> */}
-      <a href="/"><img class="navbar-brand" src="./src/assets/react.svg" alt="HomePage"></img></a>
+      <a href="/"><img className="navbar-brand" src="./src/assets/react.svg" alt="HomePage"></img></a>
 
       
       {/* <h1 id='website-title'>Childfree Socially </h1> */}
@@ -43,6 +43,7 @@ function Homepage() {
       </div>
 
       </nav>
+      <p>Our mission</p>
      
       {/* <h1>Homepage</h1> */}
         

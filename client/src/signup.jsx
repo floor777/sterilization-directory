@@ -29,7 +29,7 @@ function Signup() {
         url: "http://localhost:3000/signup"
               
       })
-      .then(res => console.log(res));
+      // .then(res => console.log(res));
     };
 
   return (

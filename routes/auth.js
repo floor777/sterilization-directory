@@ -3,26 +3,23 @@ const router = express.Router();
 const passport = require('../services/passport');
 
 
-router.post('/', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
-      
-
-    // NEED TO CALL req.login()!!!
-    req.login(user, next);
-    console.log("current req.user: " + req.user.email);
-    console.log(req.session.id);
-  })(req, res, next);
-
-  
-}
-);
+router.post('/',
+  passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
+  function(req, res) {
+    // console.log("req.user.email: " + req.user);
+    // console.log(req.isAuthenticated());
+    // console.log(req.session)
+    if(req.isAuthenticated) {
+      res.sendStatus(200)
+    }
+    else {
+      res.sendStatus(404)
+    }
+  });
 
 
 router.get('/', (req, res) => {
-    console.log('get in login testing');
+    res.send('login get route');
 })
 
 module.exports = router;
