@@ -6,9 +6,6 @@ const argon2 = require('argon2');
 const { User } = require('../models/user.model.js');
 
 router.post("/", async (req, res) => {
-    console.log('mewoewoewoeoq');
-
-  
     db.sequelize.transaction(async () => {
       //
       
