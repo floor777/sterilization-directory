@@ -5,9 +5,9 @@ jobs:
   # Job one with a unique name
   say_hello:
     docker:
-     - image: cimg/base:2022.05
+     - image: cimg/base:2022.05 
         auth:
-          username: floor777
+          username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run: echo "Say hello to YAML!"
@@ -16,7 +16,7 @@ jobs:
     docker:
      - image: cimg/base:2022.05
         auth:
-          username: floor777
+          username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run: echo "Say goodbye to YAML!"
