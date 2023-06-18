@@ -22,7 +22,6 @@
     "argon2": "^0.30.3",
     "argon2id": "^1.0.0",
     "axios": "^1.4.0",
-    "bcryptjs": "^2.4.3",
     "cls-hooked": "^4.2.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
