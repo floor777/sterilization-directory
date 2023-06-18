@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_NAME: 'placeholder text'
+      DATABASE_USERNAME: 'placeholder text'
+      DATABASE_PASSWORD: 'placeholder text'
+      DATABASE_HOSTNAME: 'placeholder text'
+
+  client:
+    build: ./client
+    ports:
+      - 5173:5173
+
+
+
+
+
+
+
+#     DATABASE_NAME="cfse_db"
+# DATABASE_USERNAME="CFSE"
+# DATABASE_PASSWORD="Revenge is in the creators hands"
+# DATABASE_HOSTNAME="localhost"
