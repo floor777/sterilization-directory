@@ -5,22 +5,37 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-// const getUser = () => {
-//   axios({
-//     method: "get",
-//     withCredentials: true,
-//     url: "http://localhost:3000/currentuser"
-//   }).then((response) => {
-//     console.log(response);
-//     const 
-//   });
-// };
 
 function Dashboard() { 
     const [authorizedUsername, setAuthorizedUserName] = useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const navigate = useNavigate();
+
+    const logout = () => {
+      axios({
+        method: "post",
+        withCredentials: true,
+        url: "http://localhost:3000/auth/logout"
+
+      })
+      .then(response => {
+        if(response.config.method === "post" && response.data == "OK" ) {
+          console.log(response);
+          console.log('Logout was successful');
+          navigate("/");
+          
+        }
+        else  {
+          console.log(response.config.method);
+          console.log(response.status);
+          console.log(response.data);
+          console.log('Non-200 response recorded in dashboard.jsx');
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    }
     const login = () => {
 
       axios({
@@ -37,10 +52,9 @@ function Dashboard() {
         if(response.status === 200) {
           console.log('Login was successful');
           navigate("/dashboard");
-          // getUser();
         }
         else  {
-          console.log('Non-200 response recorded in login.jsx');
+          console.log('Non-200 response recorded in dashboard.jsx');
         }
       }).catch(err => {
         console.log(err);
@@ -56,7 +70,7 @@ function Dashboard() {
         console.log(response);
         const currentUser = response.data.name;
         setAuthorizedUserName(currentUser);
-        // console.log("asdsa" + authorizedUsername);
+        
       });
     };
 
@@ -64,11 +78,12 @@ function Dashboard() {
     <>
     <div>
         <h1>Welcome back, {authorizedUsername}!</h1>
-        <p>New events with like-minded people are waiting for you</p>
+        <p>Find a nearby doctor who understands and respects you</p>
         <input placeholder='email' onChange={e => setLoginEmail(e.target.value)}></input>
         <input placeholder='password' onChange={e => setLoginPassword(e.target.value)}></input>
         <button onClick={login}>Submit</button>
-        <button onClick={getUser}> get loggedin user</button>
+        <button onClick={getUser}>Get loggedin user</button>
+        <button onClick={logout}>Logout</button>
 
 
     </div>
