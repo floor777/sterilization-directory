@@ -5,8 +5,8 @@ jobs:
   build:
     docker:
      - image: cimg/base:2022.05
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+        # auth:
+        #   username: mydockerhub-user
+        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
         - run: echo "Say hello to YAML!"
