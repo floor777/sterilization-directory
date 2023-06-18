@@ -58,7 +58,7 @@ app.use(passport.session()); // allow passport to use express-session
 
 
 app.use('/', indexRouter);
-app.use('/login', authRouter);
+app.use('/auth', authRouter);
 app.use('/signup', signupRouter);
 
 // temporary test route to check for valid session after login
