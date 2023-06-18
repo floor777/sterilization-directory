@@ -28,7 +28,7 @@ function Login() {
         },
         withCredentials: true,
         
-        url: "http://localhost:3000/login"
+        url: "http://localhost:3000/auth/login"
               
       })
       .then(response => {
