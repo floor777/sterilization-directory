@@ -2,12 +2,6 @@ const {Sequelize, DataTypes} = require("sequelize");
 const db = require('../services/db.js');
 require('dotenv').config();
 
-   
-db.sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.');
-}).catch((error) => {
-  console.error('Unable to connect to the database: ', error);
-});
 const User = db.sequelize.define("users", {
   id: {
     type: DataTypes.UUID,
