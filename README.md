@@ -1,2 +1,2 @@
 # childfree-social-club
-A website for the childfree to host social events together around like-minded people
+A website for the childfree to find childfree-friendly doctors who will help them achieve their sterilization goals
