@@ -2,8 +2,6 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const argon2 = require('argon2');
 const { User } = require('../models/user.model.js');
-const db = require('./db.js');
-const { error } = require('console');
 
 
 passport.use(new LocalStrategy( 
@@ -18,20 +16,19 @@ passport.use(new LocalStrategy(
       }
     );
     if (!user) {
-      console.log("incorrect username or password X")
+      console.log("incorrect username or password")
       return done(null, false); 
     }
 
     if (!await argon2.verify(user.password, password)) {
-      console.log("incorrect username or password Y");
+      console.log("incorrect username or password");
 
 
       return done(null, false); 
     }
       
     console.log('Login information verified');
-    // console.log(user.email);
-    // console.log("user id: " + user.id);
+
     return done(null, user);
     
   }
