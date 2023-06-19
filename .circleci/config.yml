@@ -12,6 +12,10 @@ jobs:
           name: Run tests
           command: |
             cd server
+      - run:
+          name: LS the server folder
+          command: |
+            ls
 
 
             
