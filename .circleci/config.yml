@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pwd
+            ls
 
 
             
