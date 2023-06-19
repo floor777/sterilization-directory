@@ -15,7 +15,7 @@ jobs:
       - run:
           name: LS the server folder
           command: |
-            ls && cd server && ls && npms ls && npm run test
+            ls && cd server && ls && npm ls && npm run test
 
 
             
