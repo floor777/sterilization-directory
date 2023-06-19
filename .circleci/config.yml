@@ -1,5 +1,5 @@
 jobs:
-  build-server:
+  build:
     docker:
       - image: cimg/node:16.10
         auth:
@@ -17,5 +17,7 @@ jobs:
           command: |
             docker-compose up -d
             docker images
+
+
             
           
