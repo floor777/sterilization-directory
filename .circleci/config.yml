@@ -9,9 +9,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Run tests
+          name: Install dependencies in server and client
           command: |
-            pwd && cd server && ls
+            cd server && npm ci && cd .. && cd client && npm ci
       - run:
           name: LS the server folder
           command: |
