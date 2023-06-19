@@ -1,5 +1,5 @@
 jobs:
-  build:
+  build-server:
     docker:
       - image: cimg/node:16.10
         auth:
@@ -7,6 +7,15 @@ jobs:
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
+      - setup_remote_docker
+      # - run:
+      #     name: Install dependencies
+      #     command:
+      #       cd server && npm ci
       - run:
           name: Run tests
-          command: pwd && ls
+          command: |
+            docker-compose up -d
+            docker images
+            
+          
