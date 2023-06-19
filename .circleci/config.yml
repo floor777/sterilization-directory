@@ -15,7 +15,7 @@ jobs:
       - run:
           name: LS the server folder
           command: |
-            ls && npm run test && docker compose up
+            ls && cd server && npm run test && docker compose up
 
 
             
