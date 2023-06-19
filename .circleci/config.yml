@@ -11,8 +11,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker-compose up -d &&
-            cd server && npm run test
+            pwd && docker-compose up -d &&
+            cd server && pwd && npm run test
 
 
             
