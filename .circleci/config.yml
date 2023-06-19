@@ -12,7 +12,7 @@ jobs:
           name: Run tests
           command: |
             docker-compose up -d &&
-            npm run test
+            cd server && npm run test
 
 
             
