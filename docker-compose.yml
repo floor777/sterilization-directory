@@ -1,0 +1,15 @@
+services:
+  server:
+    image: floor777/sterilization-directory-server:v1
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_NAME=fakedata
+      - DATABASE_USERNAME=fakedata
+      - DATABASE_PASSWORD=fakedata
+      - DATABASE_HOSTNAME=fakedata
+
+  client:
+    image: floor777/sterilization-directory-client:v1
+    ports:
+      - 5137:5137
