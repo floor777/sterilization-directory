@@ -39,7 +39,6 @@ jobs:
             docker push $CLIENT_IMAGE_NAME:test
             docker push $SERVER_IMAGE_NAME:test
 workflows:
-  version: 2
   build-master:
     jobs:
       - build:
