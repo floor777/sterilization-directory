@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            docker-compose build
+            docker images
 
 
   publish-latest:
