@@ -17,6 +17,10 @@ jobs:
           command: |
             cd server && docker build -t $SERVER_IMAGE_NAME:test . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:test .
       - run:
+          name: Run tests on server image
+          command: |
+            cd server && docker run $SERVER_IMAGE_NAME:test npm run test
+      - run:
           name: Check docker images
           command: |
             docker images
@@ -32,6 +36,12 @@ jobs:
             - ./client-image.tar
 
   test:
+    executor: docker-publisher
+    steps:
+      - run 
+          name: Print to console
+          command: 'echo test job'
+
 
 
   publish-latest:
