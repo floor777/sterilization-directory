@@ -15,6 +15,10 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
+            cd server && docker build . && cd .. && cd client && docker build .
+      - run:
+          name: Check docker images
+          command: |
             docker images
 
 
