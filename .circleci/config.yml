@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build -t floor777/sterilization-directory-server:test . && cd .. && cd client && docker build -t floor777/sterilization-directory-client:test .
+            cd server && docker build -t $SERVER_IMAGE_NAME:test . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:test .
       - run:
           name: Check docker images
           command: |
@@ -30,8 +30,8 @@ jobs:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $CLIENT_IMAGE_NAME:test
-            docker push $SERVER_IMAGE_NAME:test
+            docker push $CLIENT_IMAGE_NAME
+            docker push $SERVER_IMAGE_NAME
 workflows:
   build-master:
     jobs:
