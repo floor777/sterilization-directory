@@ -15,23 +15,15 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            docker-compose build
-      # - run:
-      #     name: Archive Docker image
-      #     command: docker save -o client-image.tar $CLIENT_IMAGE_NAME && docker save -o server-image.tar $SERVER_IMAGE_NAME
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - ./image.tar
+            docker-compose up
+  test:
+    steps:
+      command: echo hello
+
   publish-latest:
     executor: docker-publisher
     steps:
-      # - attach_workspace:
-      #     at: /tmp/workspace
       - setup_remote_docker
-      # - run:
-      #     name: Load archived Docker image
-      #     command: docker load -i /tmp/workspace/image.tar
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
