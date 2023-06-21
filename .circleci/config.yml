@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build . && cd .. && cd client && docker build .
+            cd server && docker build -t floor777/sterilization-directory-server:test . && cd .. && cd client && docker build -t floor777/sterilization-directory-client:test .
       - run:
           name: Check docker images
           command: |
