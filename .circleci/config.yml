@@ -18,7 +18,9 @@ jobs:
             docker-compose up
   test:
     steps:
-      command: echo hello
+      - run:
+          name: Echo hello in place of tests
+        command: echo hello
 
   publish-latest:
     executor: docker-publisher
