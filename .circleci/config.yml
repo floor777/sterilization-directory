@@ -16,11 +16,7 @@ jobs:
           name: Build images of services declared in docker-compose.yml
           command: |
             docker-compose up
-  test:
-    steps:
-      - run:
-          name: Echo hello in place of tests
-        command: echo hello
+
 
   publish-latest:
     executor: docker-publisher
