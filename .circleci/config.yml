@@ -30,8 +30,8 @@ jobs:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            # docker push $CLIENT_IMAGE_NAME
-            docker push $SERVER_IMAGE_NAME
+            docker push $CLIENT_IMAGE_NAME:test
+            docker push $SERVER_IMAGE_NAME:test
 workflows:
   build-master:
     jobs:
