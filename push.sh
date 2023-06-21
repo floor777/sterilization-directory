@@ -1,3 +1,3 @@
 git add .
-git commit -m"Remove quotes from command"
+git commit -m"Add test job to workflow"
 git push

@@ -69,9 +69,16 @@ workflows:
           filters:
             branches:
               only: testing
+      - test:
+          requires: 
+            - build
+          filters:
+            branches:
+              only: testing
       - publish-latest:
           requires:
             - build
+            - test
           filters:
             branches:
               only: testing
