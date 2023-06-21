@@ -7,7 +7,7 @@ executors:
     docker:
       - image: cimg/base:2021.04
 jobs:
-  build:
+  build-and-test:
     executor: docker-publisher
     steps:
       - checkout
@@ -20,6 +20,10 @@ jobs:
           name: Run tests on server image
           command: |
             cd server && docker run $SERVER_IMAGE_NAME:test npm run test
+      - run:
+          name: Run tests on client image
+          command: |
+            cd client && docker run $CLIENT_IMAGE_NAME:test npm run test
       - run:
           name: Check docker images
           command: |
@@ -66,20 +70,20 @@ jobs:
 workflows:
   build-master:
     jobs:
-      - build:
+      - build-and-test:
           filters:
             branches:
               only: testing
-      - test:
-          requires: 
-            - build
-          filters:
-            branches:
-              only: testing
+      # - test:
+      #     requires: 
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: testing
       - publish-latest:
           requires:
-            - build
-            - test
+            - build-and-test
+
           filters:
             branches:
               only: testing
