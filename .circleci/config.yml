@@ -34,10 +34,10 @@ workflows:
       - build:
           filters:
             branches:
-              only: main
+              only: testing
       - publish-latest:
           requires:
             - build
           filters:
             branches:
-              only: main
+              only: testing
