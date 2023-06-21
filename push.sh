@@ -1,3 +1,3 @@
 git add .
-git commit -m"Run dummy test to verify compatibility"
+git commit -m"Test new job in pipeline"
 git push
