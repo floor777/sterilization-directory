@@ -77,6 +77,5 @@ app.get('/dashboard', (req, res) => {
     res.redirect('/login');
   }
 });
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-});
+
+module.exports = app;
