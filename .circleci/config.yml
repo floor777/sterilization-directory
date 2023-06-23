@@ -39,16 +39,6 @@ jobs:
             - ./server-image.tar
             - ./client-image.tar
 
-  test:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - run:
-          name: Print to console
-          command: echo test job
-
-
-
   publish-latest:
     executor: docker-publisher
     steps:
@@ -74,12 +64,6 @@ workflows:
           filters:
             branches:
               only: testing
-      # - test:
-      #     requires: 
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: testing
       - publish-latest:
           requires:
             - build-and-test
