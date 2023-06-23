@@ -77,5 +77,4 @@ app.get('/dashboard', (req, res) => {
     res.redirect('/login');
   }
 });
-
 module.exports = app;
