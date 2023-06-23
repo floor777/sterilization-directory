@@ -44,6 +44,7 @@ db.sequelize.sync().then(() => {
 
 
 
+
 module.exports = {
   User: User
 }
