@@ -19,6 +19,11 @@ router.post("/", async (req, res) => {
   
       if(searchedUser === null) {
         const hashedPassword =  await argon2.hash(req.body.password);
+        res.status(200).send({ 
+          message: 'User was created',
+          name: req.body.name,
+          email: req.body.email
+        });
         return User.create({
           email: req.body.email,
           password: hashedPassword,
@@ -27,7 +32,7 @@ router.post("/", async (req, res) => {
         })
       }
       else {
-        console.log("User already exists")
+        res.status(400).send({ message: 'User already exists' });
       }
   
     })
