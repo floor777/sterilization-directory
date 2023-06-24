@@ -1,5 +1,5 @@
 const { User } = require('../models/user.model.js');
-const db = REQUIRE
+const db = require('../services/db.js');
 const request = require('supertest');
 const app = require('../index.js');
 
@@ -9,9 +9,18 @@ const mysql2 = require('mysql2');
 const cls = require('cls-hooked');
 const namespace = cls.createNamespace('CFS');
 Sequelize.useCLS(namespace);
-let sequelize;
-require('dotenv').config()
+require('dotenv').config();
 
+
+let test_sequelize = new Sequelize(
+  process.env.DATABASE_NAME_TEST,
+  process.env.DATABASE_USERNAME_TEST,
+  process.env.DATABASE_PASSWORD_TEST,
+  {
+    host: process.env.DATABASE_HOSTNAME_TEST,
+    dialect: 'mysql',
+  }
+);
 
 
 describe('Database tests', () => {
@@ -19,7 +28,7 @@ describe('Database tests', () => {
 
     beforeAll(async () => {
       // Establish the database connection
-      await db.sequelize.authenticate();
+      await test_sequelize.authenticate();
       
     });
   
@@ -27,13 +36,13 @@ describe('Database tests', () => {
       // Close the database connection
       await User.destroy({ where: {} });
       process.env.NODE_ENV = 'prod';
-      await db.sequelize.close();
-      console.log(process.env.NODE_ENV);
+      await test_sequelize.close();
+      console.log("NODE_ENV set to: " + process.env.NODE_ENV);
       
     });
   
-    test('should establish a connection to the database', () => {
-      expect(db.sequelize.authenticate()).resolves.not.toThrow();
+    test('should confirm the connection to the database', () => {
+      expect(test_sequelize.authenticate()).resolves.not.toThrow();
     });
 
 
@@ -69,29 +78,69 @@ describe('Database tests', () => {
     });
 
 
-    test('Find a user'), async () => {
-
-      const response = await request(app)
-        .get('/users')
-        .send({
-          name: "john smith",
-          email: "johnsmith@email.com",
-          password: "johnsmith",
-          location: "johnsmithcalifornia"
-        });
-
-      const searchedUser = await User.findOne({
-        where: {
-          email: req.body.email
-        },
-        
-  
+    test('Find a user', async () => {
+      const newUser = await User.create({ 
+        name: 'jane doe', 
+        email: 'janedoe@example.com',
+        password: 'janedoepw'
       });
-    }
+      const response = await request(app)
+        .get('/user/:id')
+        .send({
+          id: newUser.id,
 
-    // test('should delete a user with a given id', async () => {
-    //   const resposne = await request(app)
-    // })
+        })
+        .expect(200);
+        console.log(response.body.message);
+
+        expect(response.body.message).toBe('User with the provided id was found');
+
+    });
+
+    test('should delete a user with a given id', async () => {
+
+      const newUser = await User.create({ 
+        name: 'delete me', 
+        email: 'deleteme@example.com',
+        password: 'deletemepw'
+      });
+      const response = await request(app)
+        .delete('/user/:id')
+        .send({
+          id: newUser.id,
+
+        })
+        .expect(200);
+        console.log(response.body.message);
+
+        expect(response.body.message).toBe('User with the provided id was deleted');
+
+        const deletedUser = await User.findByPk(newUser.id);
+   
+        expect(deletedUser).toBeNull();
+
+    });
+
+    test('should update the name of a user with a given id', async () => {
+
+      const newUser = await User.create({ 
+        name: 'not updated', 
+        email: 'notupdated@example.com',
+        password: 'not updated'
+      });
+      const response = await request(app)
+        .put('/user/:id')
+        .send({
+          name: 'updated!',
+          id: newUser.id
+
+        })
+        .expect(200);
+        console.log(response.body.message);
+
+        expect(response.body.message).toBe('User with the provided id was updated');
+
+    });
 
 
     test("It should response the GET method", async () => {
