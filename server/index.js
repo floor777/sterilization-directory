@@ -22,6 +22,7 @@ app.use(express.urlencoded({
 let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
 let signupRouter = require('./routes/signup.js');
+let userRouter = require('./routes/user.js');
 
 // CORS on the localhost port used for the react client app
 app.use(cors({
@@ -60,6 +61,7 @@ app.use(passport.session()); // allow passport to use express-session
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/signup', signupRouter);
+app.use('/user', userRouter);
 
 // temporary test route to check for valid session after login
 app.get('/currentuser', (req, res) => {
