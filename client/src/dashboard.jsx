@@ -78,10 +78,8 @@ function Dashboard() {
     <>
     <div>
         <h1>Welcome back, {authorizedUsername}!</h1>
-        <p>Find a nearby doctor who understands and respects you</p>
-        <input placeholder='email' onChange={e => setLoginEmail(e.target.value)}></input>
-        <input placeholder='password' onChange={e => setLoginPassword(e.target.value)}></input>
-        <button onClick={login}>Submit</button>
+        <p>Find a nearby doctor who understands and respects the decisions you make</p>
+
         <button onClick={getUser}>Get loggedin user</button>
         <button onClick={logout}>Logout</button>
 
