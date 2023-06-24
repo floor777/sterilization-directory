@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "dev": "nodemon index.js",
+    "dev": "nodemon server.js",
     "love": "nodemon ./models/user.js"
   },
   "repository": {
