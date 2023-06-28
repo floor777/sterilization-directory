@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './login.css'
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const getUser = () => {
@@ -16,6 +17,7 @@ function Signup() {
     const [signupPassword, setSignupPassword] = useState("");
     const [signupName, setSignupName] = useState("");
     const [signupLocation, setSignupLocation] = useState("");
+    const navigate = useNavigate();
     const register = () => {
       axios({
         method: "post",
@@ -29,8 +31,24 @@ function Signup() {
         url: "http://localhost:3000/signup"
               
       })
-      // .then(res => console.log(res));
+      .then(response => {
+        if(response.config.method === "post" && response.data.message == "User was created" ) {
+          // console.log(response);
+          console.log('Signup was successful');
+          navigate("/login");
+          
+        }
+        else  {
+          // console.log(response.config.method);
+          // console.log(response.status);
+          // console.log(response.data.message);
+          console.log('Non-200 response recorded in signup.jsx');
+        }
+      }).catch(err => {
+        console.log(err);
+      });
     };
+
 
   return (
     <>
