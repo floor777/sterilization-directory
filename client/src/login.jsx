@@ -32,7 +32,7 @@ function Login() {
               
       })
       .then(response => {
-        if(response.config.method === "post" && response.data == "OK" ) {
+        if(response.config.method === "post" && response.data.message == "Login was successful" ) {
           console.log(response);
           console.log('Login was successful');
           navigate("/dashboard");
