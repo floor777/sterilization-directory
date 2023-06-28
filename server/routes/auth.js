@@ -10,7 +10,9 @@ router.post('/login',
     // console.log(req.isAuthenticated());
     // console.log(req.session)
     if(req.isAuthenticated) {
-      res.sendStatus(200)
+      res.status(200).send( {
+        message: "Login was successful"
+      })
     }
     else {
       res.sendStatus(404)
