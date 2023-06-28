@@ -60,14 +60,19 @@ function Map() {
     // console.log(markers);
  
     const [center, setCenter] = useState(() => ({ lat: 34.1008, lng: -117.7678 }), []);
+  
+
     
     
   return (
     <>
+  
+    
 
     <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} />
     </div>
+
 
     <GoogleMap 
     zoom={12} 
@@ -75,13 +80,14 @@ function Map() {
     mapContainerClassName="map-container" 
     >
       
-        {selected && <MarkerF position={selected} visible={true}   /> 
+        {selected && <MarkerF position={selected} visible={true} icon={'https://cdn.discordapp.com/attachments/1104912164294246451/1123515848267661363/map-pin.png'}  /> 
 
 
         }
         
 
         {markers.map(marker => (
+      
         <MarkerF
           key={marker.id}
           position={{ lat: parseFloat(marker.lat), lng: parseFloat(marker.lng) }}
