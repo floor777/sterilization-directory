@@ -23,6 +23,7 @@ let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
 let signupRouter = require('./routes/signup.js');
 let userRouter = require('./routes/user.js');
+let markerRouter = require('./routes/marker.js');
 
 // CORS on the localhost port used for the react client app
 app.use(cors({
@@ -62,6 +63,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/signup', signupRouter);
 app.use('/user', userRouter);
+app.use('/marker', markerRouter);
 
 // temporary test route to check for valid session after login
 app.get('/currentuser', (req, res) => {
