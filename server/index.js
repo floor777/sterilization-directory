@@ -24,6 +24,7 @@ let authRouter = require('./routes/auth');
 let signupRouter = require('./routes/signup.js');
 let userRouter = require('./routes/user.js');
 let markerRouter = require('./routes/marker.js');
+let reviewRouter = require('./routes/review.js');
 
 // CORS on the localhost port used for the react client app
 app.use(cors({
@@ -64,21 +65,6 @@ app.use('/auth', authRouter);
 app.use('/signup', signupRouter);
 app.use('/user', userRouter);
 app.use('/marker', markerRouter);
+app.use('/review', reviewRouter);
 
-// temporary test route to check for valid session after login
-app.get('/currentuser', (req, res) => {
-  res.send(req.user);
-});
-
-
-
-// Temporary route to test on the serverside if the session is established and the user is authenticated
-// via passport.js
-app.get('/dashboard', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send(`Welcome, ${req.user.email}! This is your dashboard.`);
-  } else {
-    res.redirect('/login');
-  }
-});
 module.exports = app;
