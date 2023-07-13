@@ -5,7 +5,7 @@ const cls = require('cls-hooked');
 const namespace = cls.createNamespace('CFS');
 Sequelize.useCLS(namespace);
 let sequelize;
-require('dotenv').config()
+require('dotenv').config();
 
 
 if(process.env.NODE_ENV === "dev") {
