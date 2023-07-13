@@ -1,5 +1,7 @@
 const {Sequelize, DataTypes} = require("sequelize");
 const db = require('../services/db.js');
+const { Review } = require("./review.model.js");
+
 
 const Marker = db.sequelize.define('markers', {
     id: {
@@ -24,6 +26,8 @@ const Marker = db.sequelize.define('markers', {
 
     
 });
+Marker.hasMany(Review);
+Review.belongsTo(Marker);
 
 db.sequelize.sync().then(() => {
     console.log('Markers table created successfully');
