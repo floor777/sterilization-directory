@@ -28,7 +28,7 @@ function Signup() {
           location: signupLocation
         },
         withCredentials: true,
-        url: "http://localhost:3000/signup"
+        url: "http://localhost:3000/user/createuser"
               
       })
       .then(response => {
