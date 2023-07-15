@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import './login.css'
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Home from './map';
 
@@ -20,7 +19,7 @@ function Dashboard() {
       })
       .then(response => {
         if(response.config.method === "post" && response.data == "OK" ) {
-          // console.log(response);
+
           console.log('Logout was successful');
           navigate("/");
           
@@ -40,10 +39,10 @@ function Dashboard() {
       axios({
         method: "get",
         withCredentials: true,
-        url: "http://localhost:3000/currentuser"
+        url: "http://localhost:3000/auth/currentuser"
       }).then((response) => {
-        console.log(response);
-        const currentUser = response.data.name;
+        // console.log(response);
+        const currentUser = response.data;
         setAuthorizedUserName(currentUser);
         
       });
@@ -54,16 +53,9 @@ function Dashboard() {
     <div>
         <h1>Welcome back, {authorizedUsername}!</h1>
         <p>Find a nearby doctor who understands and respects the decisions you make</p>
-        
-
-
         <button onClick={getUser}>Get loggedin user</button>
         <button onClick={logout}>Logout</button>
         <Home />
-        
-        
-
-
     </div>
 
     </>
