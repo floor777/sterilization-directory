@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "dev": "nodemon server.js --trace-warnings",
-    "love": "nodemon ./models/user.js"
+    "prod": "node server.js"
   },
   "repository": {
     "type": "git",
