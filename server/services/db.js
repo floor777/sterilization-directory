@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 require('dotenv').config()
-const mysql2 = require('mysql2');
 const cls = require('cls-hooked');
 const namespace = cls.createNamespace('CFS');
 Sequelize.useCLS(namespace);
@@ -10,6 +9,8 @@ require('dotenv').config();
 
 if(process.env.NODE_ENV === "dev") {
   console.log('Currenly in dev environment');
+
+  
   sequelize = new Sequelize(
     process.env.DATABASE_NAME_DEV,
     process.env.DATABASE_USERNAME_DEV,
@@ -52,9 +53,9 @@ else if(process.env.NODE_ENV === "prod") {
 
 sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
-  }).catch((error) => {
+}).catch((error) => {
     console.error('Unable to connect to the database: ', error);
-  });
+});
 
 
 module.exports = {
