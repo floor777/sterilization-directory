@@ -1,15 +1,23 @@
 services:
   server:
-    image: floor777/sterilization-directory-server:v1
+    # image: floor777/sterilization-directory-server:v1
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
-      - DATABASE_NAME='$DATABASE_HOSTNAME'
-      - DATABASE_USERNAME='$DATABASE_USERNAME'
-      - DATABASE_PASSWORD='$DATABASE_PASSWORD'
-      - DATABASE_HOSTNAME='$DATABASE_HOSTNAME'
+      - DATABASE_NAME=fakedbname
+      - DATABASE_USERNAME=fakeusername
+      - DATABASE_PASSWORD=fakepassword
+      - DATABASE_HOSTNAME=fakehostname
 
   client:
-    image: floor777/sterilization-directory-client:v1
+    # image: floor777/sterilization-directory-client:v1
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     ports:
-      - 5137:5137
+      - 5173:5173
+
+      
