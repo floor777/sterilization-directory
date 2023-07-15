@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import './login.css'
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: "http://localhost:3000/currentuser"
+    url: "http://localhost:3000/auth/currentuser"
   });
 };
 
@@ -33,7 +32,7 @@ function Login() {
       })
       .then(response => {
         if(response.config.method === "post" && response.data.message == "Login was successful" ) {
-          console.log(response);
+          console.log(response.data);
           console.log('Login was successful');
           navigate("/dashboard");
           
@@ -53,7 +52,7 @@ function Login() {
     <>
     <div>
         <h1>Welcome back!</h1>
-        <p>New events with like-minded people are waiting for you</p>
+        <p>Find doctors who respect your decisions today</p>
         <input placeholder='email' onChange={e => setLoginEmail(e.target.value)}></input>
         <input placeholder='password' onChange={e => setLoginPassword(e.target.value)}></input>
         <button onClick={login}>Submit</button>
