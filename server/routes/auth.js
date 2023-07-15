@@ -1,36 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../services/passport');
+const authController = require('../controllers/auth.controller.js');
 
+router.post('/login', authController.login);
 
-router.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
-  function(req, res) {
-    // console.log("req.user.email: " + req.user);
-    // console.log(req.isAuthenticated());
-    // console.log(req.session)
-    if(req.isAuthenticated) {
-      res.status(200).send( {
-        message: "Login was successful"
-      })
-    }
-    else {
-      res.sendStatus(404)
-    }
-  });
+router.post('/logout', authController.logout);
 
-
-router.get('/', (req, res) => {
-    res.send('login get route');
-})
-
-router.post('/logout', function(req, res, next){
-  req.logout(function(err) {
-    if (err) {
-       return next(err); 
-    }
-    res.sendStatus(200);
-  });
-});
+router.get('/isauthenticated', authController.isAuthenticated);
+router.get('/currentuser', authController.currentUser);
 
 module.exports = router;
