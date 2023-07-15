@@ -6,11 +6,12 @@ const session = require('express-session');
 // --- express-related imports
 const express = require('express');
 const app = express();
-const port = 3000;
+
 // --- express-related imports
 
 const cors = require("cors");
 require('dotenv').config();
+
 
 app.use(express.urlencoded({
   extended: false
@@ -19,9 +20,8 @@ app.use(express.urlencoded({
 );
 
 // Creating the routes to be used for different HTTP requests
-let indexRouter = require('./routes/index');
+
 let authRouter = require('./routes/auth');
-let signupRouter = require('./routes/signup.js');
 let userRouter = require('./routes/user.js');
 let markerRouter = require('./routes/marker.js');
 let reviewRouter = require('./routes/review.js');
@@ -46,7 +46,7 @@ app.use(session({
   resave: true, 
   saveUninitialized:true
 })); // session secret
-// app.use(cookieParser(process.env.PASSPORT_SECRET));
+app.use(cookieParser(process.env.PASSPORT_SECRET));
 
 
 
@@ -60,11 +60,10 @@ app.use(passport.session()); // allow passport to use express-session
 
 
 
-app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/signup', signupRouter);
 app.use('/user', userRouter);
 app.use('/marker', markerRouter);
 app.use('/review', reviewRouter);
+
 
 module.exports = app;
