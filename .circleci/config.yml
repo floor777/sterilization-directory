@@ -51,12 +51,30 @@ jobs:
             docker load -i /tmp/workspace/client-image.tar
             docker load -i /tmp/workspace/server-image.tar
       - run:
-          name: Publish Docker Image to Docker Hub
+          name: Push Docker Images to Azure Container Registry
           command: |
-            echo "$DOCKER_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker images
-            # docker push $CLIENT_IMAGE_NAME:test
-            # docker push $SERVER_IMAGE_NAME:test
+            # Log in to Azure CLI with service principal credentials (ensure you set these in CircleCI environment variables)
+            az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+            
+            # Set Azure Container Registry info
+            ACR_NAME=sterdirregistry.azurecr.io
+            CLIENT_IMAGE_NAME=$ACR_NAME/sterilization-directory-client
+            SERVER_IMAGE_NAME=$ACR_NAME/sterilization-directory-server
+
+            # Increment version numbers (you may use your own logic here)
+            CLIENT_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+            SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+
+            # Tag and push Docker images to Azure Container Registry
+            docker tag $CLIENT_IMAGE_NAME:test $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
+            docker tag $SERVER_IMAGE_NAME:test $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
+            docker push $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
+            docker push $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
+
+            # Restart Azure App Services
+            az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
+            az webapp restart --name sterilizationdirectoryclient --resource-group SDResourceGroup
+
 workflows:
   build-master:
     jobs:
@@ -67,7 +85,6 @@ workflows:
       - publish-latest:
           requires:
             - build-and-test
-
           filters:
             branches:
               only: testing
