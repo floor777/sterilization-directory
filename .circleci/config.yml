@@ -16,13 +16,13 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build |
-              -t $SERVER_IMAGE_NAME:latest |
-              --build-arg DATABASE_HOSTNAME=${DATABASE_HOSTNAME} |
-              --build-arg DATABASE_PASSWORD=${DATABASE_PASSWORD} |
-              --build-arg DATABASE_NAME=${DATABASE_NAME} |
-              --build-arg test=${test} |
-              --build-arg DATABASE_USERNAME=${DATABASE_USERNAME} |
+            cd server && docker build\
+              -t $SERVER_IMAGE_NAME:latest\
+              --build-arg DATABASE_HOSTNAME=${DATABASE_HOSTNAME}\
+              --build-arg DATABASE_PASSWORD=${DATABASE_PASSWORD}\
+              --build-arg DATABASE_NAME=${DATABASE_NAME}\
+              --build-arg test=${test}\
+              --build-arg DATABASE_USERNAME=${DATABASE_USERNAME}\
               .
       - run:
           name: Run tests on server image
