@@ -81,10 +81,10 @@ workflows:
       - build-and-test:
           filters:
             branches:
-              only: testing
+              only: main
       - publish-latest:
           requires:
             - build-and-test
           filters:
             branches:
-              only: testing
+              only: main
