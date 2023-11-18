@@ -10,13 +10,14 @@ executors:
 
 jobs:
   build-and-test:
-    executor: docker-publisher
+    docker:
+      - image: cimg/base:2021.04
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Set Environment Variables
-          command: echo "ACR_NAME=$ACR_NAME" >> $BASH_ENV
+          command: echo "export ACR_NAME=$ACR_NAME" >> $BASH_ENV
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
@@ -24,14 +25,15 @@ jobs:
       # ... rest of your build-and-test steps ...
 
   publish-latest:
-    executor: docker-publisher
+    docker:
+      - image: cimg/base:2021.04
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - setup_remote_docker
       - run:
           name: Set Environment Variables
-          command: echo "ACR_NAME=$ACR_NAME" >> $BASH_ENV
+          command: echo "export ACR_NAME=$ACR_NAME" >> $BASH_ENV
       - run:
           name: Load archived Docker image
           command: |
@@ -40,7 +42,7 @@ jobs:
       - run:
           name: Push Docker Images to Azure Container Registry
           command: |
-            # Log in to Azure CLI with service principal credentials (ensure you set these in CircleCI environment variables)
+            source $BASH_ENV  # Source the environment variables
             docker login $ACR_NAME -u $ACR_USERNAME -p $ACR_PASSWORD --tenant $AZURE_TENANT_ID
             # ... rest of your push steps ...
 
