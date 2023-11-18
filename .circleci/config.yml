@@ -30,8 +30,8 @@ jobs:
       - run:
           name: Run tests on client image
           command: |
-          source $BASH_ENV  # Source the environment variables
-          cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
+            source $BASH_ENV  # Source the environment variables
+            cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
 
       - run:
           name: Check docker images
