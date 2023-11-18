@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Run tests on server image
           command: |
-            export DATABASE_NAME=$DATABASE_NAME
+            export DATABASE_NAME="nope"
             export DATABASE_USERNAME=$DATABASE_USERNAME
             export DATABASE_PASSWORD=$DATABASE_PASSWORD
             export DATABASE_HOSTNAME=$DATABASE_HOSTNAME
