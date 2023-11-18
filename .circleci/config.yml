@@ -6,6 +6,7 @@ executors:
       SERVER_IMAGE_NAME: sterdirregistry.azure.io/sterilization-directory-server
     docker:
       - image: cimg/base:2021.04
+
 jobs:
   build-and-test:
     executor: docker-publisher
@@ -16,6 +17,7 @@ jobs:
           name: Build images of services declared in docker-compose.yml
           command: |
             cd server && docker build -t $SERVER_IMAGE_NAME:latest . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
+
       - run:
           name: Run tests on server image
           command: |
@@ -23,20 +25,30 @@ jobs:
             export DATABASE_USERNAME=$DATABASE_USERNAME
             export DATABASE_PASSWORD=$DATABASE_PASSWORD
             export DATABASE_HOSTNAME=$DATABASE_HOSTNAME
-            cd server && ls && docker run $SERVER_IMAGE_NAME:latest npm run test
+            cd server
+            ls
+            npm install
+            npm run test
+
       - run:
           name: Run tests on client image
           command: |
-            cd client && ls && docker run $CLIENT_IMAGE_NAME:latest npm run test
+            cd client
+            ls
+            npm install
+            npm run test
+
       - run:
           name: Check docker images
           command: |
             docker images
+
       - run:
           name: Archive docker images
           command: |
             docker save -o server-image.tar $SERVER_IMAGE_NAME
             docker save -o client-image.tar $CLIENT_IMAGE_NAME
+
       - persist_to_workspace:
           root: .
           paths:
@@ -48,18 +60,21 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
+
       - setup_remote_docker
+
       - run:
           name: Load archived Docker image
           command: |
             docker load -i /tmp/workspace/client-image.tar
             docker load -i /tmp/workspace/server-image.tar
+
       - run:
           name: Push Docker Images to Azure Container Registry
           command: |
             # Log in to Azure CLI with service principal credentials (ensure you set these in CircleCI environment variables)
             docker login $ACR_NAME -u $ACR_USERNAME -p $ACR_PASSWORD
-            
+
             # Set Azure Container Registry info
             ACR_NAME=sterdirregistry.azurecr.io
             CLIENT_IMAGE_NAME=$ACR_NAME/sterilization-directory-client
