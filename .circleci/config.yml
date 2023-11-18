@@ -27,7 +27,6 @@ jobs:
             export DATABASE_HOSTNAME=$DATABASE_HOSTNAME
             cd server
             ls
-            npm install
             npm run test
 
       - run:
@@ -35,7 +34,6 @@ jobs:
           command: |
             cd client
             ls
-            npm install
             npm run test
 
       - run:
