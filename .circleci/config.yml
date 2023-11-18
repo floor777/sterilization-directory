@@ -15,15 +15,15 @@ jobs:
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build -t $SERVER_IMAGE_NAME:test . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:test .
+            cd server && docker build -t $SERVER_IMAGE_NAME:latest . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
       - run:
           name: Run tests on server image
           command: |
-            cd server && docker run $SERVER_IMAGE_NAME:test npm run test
+            cd server && docker run $SERVER_IMAGE_NAME:latest npm run test
       - run:
           name: Run tests on client image
           command: |
-            cd client && docker run $CLIENT_IMAGE_NAME:test npm run test
+            cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
       - run:
           name: Check docker images
           command: |
@@ -54,7 +54,7 @@ jobs:
           name: Push Docker Images to Azure Container Registry
           command: |
             # Log in to Azure CLI with service principal credentials (ensure you set these in CircleCI environment variables)
-            az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+            docker login $ACR_NAME -u $ACR_USERNAME -p $ACR_PASSWORD
             
             # Set Azure Container Registry info
             ACR_NAME=sterdirregistry.azurecr.io
