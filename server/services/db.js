@@ -6,7 +6,7 @@ Sequelize.useCLS(namespace);
 let sequelize;
 require('dotenv').config();
 var fs = require("fs");
-const serverCa = [fs.readFileSync("./DigiCertGlobalRootCA.crt.pem")];
+const serverCa = [fs.readFileSync("../DigiCertGlobalRootCA.crt.pem")];
 console.log('Initializing database');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
