@@ -1,6 +1,7 @@
 // --- Passport related imports ---
 const passport = require('./services/passport');
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 // --- Passport related imports ---
 
 // --- express-related imports
@@ -28,9 +29,10 @@ let reviewRouter = require('./routes/review.js');
 
 // CORS on the localhost port used for the react client app
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://sterilizationdirectory.azurewebsites.net",
   credentials: true
 }));
+
 
 
 
@@ -42,11 +44,17 @@ app.use(express.json());
 
 // Initializing express session 
 app.use(session({
-  secret: [process.env.PASSPORT_SECRET],
+  secret: process.env.PASSPORT_SECRET,
   resave: true, 
-  saveUninitialized:true
+  saveUninitialized:true,
+  cookie: {
+    sameSite: 'none',
+    secure: true,
+  }
+
 })); // session secret
 app.use(cookieParser(process.env.PASSPORT_SECRET));
+
 
 
 
@@ -57,13 +65,18 @@ app.use(passport.session()); // allow passport to use express-session
 
 
 // -------------- passport --------------
-
+app.set("trust proxy", 1);
 
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/marker', markerRouter);
 app.use('/review', reviewRouter);
+
+app.get('/', (req, res) => {
+  res.send('a');
+});
+
 
 
 module.exports = app;
