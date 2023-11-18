@@ -1,36 +1,33 @@
 version: 2.1
-
 executors:
   docker-publisher:
     environment:
-      ACR_NAME: $ACR_NAME
-      CLIENT_IMAGE_NAME: $ACR_NAME/sterilization-directory-client-fixed
-      SERVER_IMAGE_NAME: $ACR_NAME/sterilization-directory-server
+      CLIENT_IMAGE_NAME: floor777/sterilization-directory-client
+      SERVER_IMAGE_NAME: floor777/sterilization-directory-server
     docker:
       - image: cimg/base:2021.04
-
 jobs:
   build-and-test:
-    docker:
-      - image: cimg/base:2021.04
+    executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build -t $ACR_NAME/sterilization-directory-server:latest . && cd .. && cd client && docker build -t $ACR_NAME/sterilization-directory-client-fixed:latest .
+            cd server && docker build -t $SERVER_IMAGE_NAME:test . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:test .
       - run:
           name: Run tests on server image
           command: |
-            cd server && docker run -e ACR_NAME=$ACR_NAME -e SERVER_IMAGE_NAME=$SERVER_IMAGE_NAME:latest npm run test
+            cd server && docker run $SERVER_IMAGE_NAME:test npm run test
       - run:
           name: Run tests on client image
           command: |
-            cd client && docker run -e ACR_NAME=$ACR_NAME -e CLIENT_IMAGE_NAME=$CLIENT_IMAGE_NAME:latest npm run test
+            cd client && docker run $CLIENT_IMAGE_NAME:test npm run test
       - run:
           name: Check docker images
-          command: docker images
+          command: |
+            docker images
       - run:
           name: Archive docker images
           command: |
@@ -43,8 +40,7 @@ jobs:
             - ./client-image.tar
 
   publish-latest:
-    docker:
-      - image: cimg/base:2021.04
+    executor: docker-publisher
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -57,9 +53,27 @@ jobs:
       - run:
           name: Push Docker Images to Azure Container Registry
           command: |
-            docker login $ACR_NAME -u $ACR_USERNAME -p $ACR_PASSWORD --tenant $AZURE_TENANT_ID
-            docker push $CLIENT_IMAGE_NAME:latest
-            docker push $SERVER_IMAGE_NAME:latest
+            # Log in to Azure CLI with service principal credentials (ensure you set these in CircleCI environment variables)
+            az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+            
+            # Set Azure Container Registry info
+            ACR_NAME=sterdirregistry.azurecr.io
+            CLIENT_IMAGE_NAME=$ACR_NAME/sterilization-directory-client
+            SERVER_IMAGE_NAME=$ACR_NAME/sterilization-directory-server
+
+            # Increment version numbers (you may use your own logic here)
+            CLIENT_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+            SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+
+            # Tag and push Docker images to Azure Container Registry
+            docker tag $CLIENT_IMAGE_NAME:test $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
+            docker tag $SERVER_IMAGE_NAME:test $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
+            docker push $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
+            docker push $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
+
+            # Restart Azure App Services
+            az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
+            az webapp restart --name sterilizationdirectoryclient --resource-group SDResourceGroup
 
 workflows:
   build-master:
@@ -67,10 +81,10 @@ workflows:
       - build-and-test:
           filters:
             branches:
-              only: testing
+              only: main
       - publish-latest:
           requires:
             - build-and-test
           filters:
             branches:
-              only: testing
+              only: main
