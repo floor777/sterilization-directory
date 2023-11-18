@@ -1,23 +1,18 @@
+version: '3'
+
 services:
   server:
-    # image: floor777/sterilization-directory-server:v1
     build:
       context: ./server
       dockerfile: Dockerfile
+    image: sterdirregistry.azurecr.io/sterilization-directory-server:v2
     ports:
-      - 3000:3000
-    environment:
-      - DATABASE_NAME=fakedbname
-      - DATABASE_USERNAME=fakeusername
-      - DATABASE_PASSWORD=fakepassword
-      - DATABASE_HOSTNAME=fakehostname
+      - "3000:3000"
 
   client:
-    # image: floor777/sterilization-directory-client:v1
     build:
       context: ./client
       dockerfile: Dockerfile
+    image: sterdirregistry.azurecr.io/sterilization-directory-client:v2
     ports:
-      - 5173:5173
-
-      
+      - "80:80"
