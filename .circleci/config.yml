@@ -22,7 +22,28 @@ jobs:
           name: Build images of services declared in docker-compose.yml
           command: |
             cd server && docker build -t $ACR_NAME/sterilization-directory-server:latest . && cd .. && cd client && docker build -t $ACR_NAME/sterilization-directory-client-fixed:latest .
-      # ... rest of your build-and-test steps ...
+      - run:
+          name: Run tests on server image
+          command: |
+            cd server && docker run $SERVER_IMAGE_NAME:latest npm run test
+      - run:
+          name: Run tests on client image
+          command: |
+            cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
+      - run:
+          name: Check docker images
+          command: |
+            docker images
+      - run:
+          name: Archive docker images
+          command: |
+            docker save -o server-image.tar $SERVER_IMAGE_NAME
+            docker save -o client-image.tar $CLIENT_IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./server-image.tar
+            - ./client-image.tar
 
   publish-latest:
     docker:
