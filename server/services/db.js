@@ -5,56 +5,40 @@ const namespace = cls.createNamespace('CFS');
 Sequelize.useCLS(namespace);
 let sequelize;
 require('dotenv').config();
-
-
-if(process.env.NODE_ENV === "dev") {
-  console.log('Currenly in dev environment');
-
-  
-  sequelize = new Sequelize(
-    process.env.DATABASE_NAME_DEV,
-    process.env.DATABASE_USERNAME_DEV,
-    process.env.DATABASE_PASSWORD_DEV,
-    {
-      host: process.env.DATABASE_HOSTNAME_DEV,
-      dialect: 'mysql',
-    }
-);
-
-}
-else if(process.env.NODE_ENV ==="test") {
-  console.log("Currenly in test environment");
-  sequelize = new Sequelize(
-    process.env.DATABASE_NAME_TEST,
-    process.env.DATABASE_USERNAME_TEST,
-    process.env.DATABASE_PASSWORD_TEST,
-    {
-      host: process.env.DATABASE_HOSTNAME_TEST,
-      dialect: 'mysql',
-    }
-);
-}
-
-else if(process.env.NODE_ENV === "prod") {
-  console.log('Currenly in prod environment');
+var fs = require("fs");
+const serverCa = [fs.readFileSync("./DigiCertGlobalRootCA.crt.pem")];
+console.log('Initializing database');
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
   sequelize = new Sequelize(
-    process.env.DATABASE_NAME_PROD,
-    process.env.DATABASE_USERNAME_PROD,
-    process.env.DATABASE_PASSWORD_PROD,
+    process.env.DATABASE_NAME,
+    process.env.DATABASE_USERNAME,
+    process.env.DATABASE_PASSWORD,
+    
     {
-      host: process.env.DATABASE_HOSTNAME_PROD,
+      host: process.env.DATABASE_HOSTNAME,
       dialect: 'mysql',
-    }
-);
+      port: 3306,
+            
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+        encrypt: true,
+        ca:  serverCa
+      }
 
-}
+    }
+      
+    }
+  );
+
+
 
 
 sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
 }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
+    console.error('Unable to connect to the database: ', error );
 });
 
 
