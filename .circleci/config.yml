@@ -25,11 +25,14 @@ jobs:
       - run:
           name: Run tests on server image
           command: |
-            cd server && docker run $SERVER_IMAGE_NAME:latest npm run test
+          source $BASH_ENV  # Source the environment variables
+          cd server && docker run $SERVER_IMAGE_NAME:latest npm run test
       - run:
           name: Run tests on client image
           command: |
-            cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
+          source $BASH_ENV  # Source the environment variables
+          cd client && docker run $CLIENT_IMAGE_NAME:latest npm run test
+
       - run:
           name: Check docker images
           command: |
