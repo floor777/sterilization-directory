@@ -19,11 +19,14 @@
   },
   "homepage": "https://github.com/floor777/childfree-social-club#readme",
   "dependencies": {
+    "@azure/identity": "^3.2.3",
+    "@azure/keyvault-secrets": "^4.7.0",
     "argon2": "^0.30.3",
     "argon2id": "^1.0.0",
     "axios": "^1.4.0",
     "cls-hooked": "^4.2.2",
     "cookie-parser": "^1.4.6",
+    "cookieparser": "^0.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -33,6 +36,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.31.1",
+    "sqlite3": "^5.1.6",
     "supertest": "^6.3.3"
   },
   "devDependencies": {
