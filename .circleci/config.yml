@@ -2,8 +2,8 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      CLIENT_IMAGE_NAME: floor777/sterilization-directory-client
-      SERVER_IMAGE_NAME: floor777/sterilization-directory-server
+      CLIENT_IMAGE_NAME: sterdirregistry.azure.io/sterilization-directory-client-fixed
+      SERVER_IMAGE_NAME: sterdirregistry.azure.io/sterilization-directory-server
     docker:
       - image: cimg/base:2021.04
 jobs:
