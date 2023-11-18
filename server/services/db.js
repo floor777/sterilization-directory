@@ -13,6 +13,7 @@ console.log("checkz")
 console.log(process.env.test.length);
 console.log(process.env.DATABASE_HOSTNAME === undefined)
 console.log(process.env.DATABASE_USERNAME.length)
+console.log(process.env.DATABASE_HOSTNAME.length)
 
   sequelize = new Sequelize(
     process.env.DATABASE_NAME,
