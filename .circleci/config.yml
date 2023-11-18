@@ -2,6 +2,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
+      ACR_NAME: $ACR_NAME
       CLIENT_IMAGE_NAME: $ACR_NAME/sterilization-directory-client-fixed
       SERVER_IMAGE_NAME: $ACR_NAME/sterilization-directory-server
     docker:
