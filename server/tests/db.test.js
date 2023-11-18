@@ -1,5 +1,5 @@
 const { User } = require('../models/user.model.js');
-const db = require('../services/db.js');
+// const db = require('../services/db.js');
 const request = require('supertest');
 const app = require('../index.js');
 
