@@ -12,10 +12,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+
       - run:
           name: Build images of services declared in docker-compose.yml
           command: |
-            cd server && docker build -t $SERVER_IMAGE_NAME:latest . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
+            cd server && docker build --build-arg test=${test} -t $SERVER_IMAGE_NAME:latest . && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
       - run:
           name: Run tests on server image
           command: |
