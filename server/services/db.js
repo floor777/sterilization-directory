@@ -12,6 +12,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 console.log("checkz")
 console.log(process.env.test);
 console.log(process.env.DATABASE_HOSTNAME === undefined)
+console.log(process.env.DATABASE_USERNAME.length === 7)
 
   sequelize = new Sequelize(
     process.env.DATABASE_NAME,
