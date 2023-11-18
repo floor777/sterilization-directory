@@ -10,10 +10,8 @@ const serverCa = [fs.readFileSync("./DigiCertGlobalRootCA.crt.pem")];
 console.log('Initializing database');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 console.log("checkz")
-console.log(process.env.DATABASE_USERNAME);
-console.log(process.env.xxx);
-console.log(process.env.yyy);
-console.log()
+console.log(process.env.test);
+
   sequelize = new Sequelize(
     process.env.DATABASE_NAME,
     process.env.DATABASE_USERNAME,
