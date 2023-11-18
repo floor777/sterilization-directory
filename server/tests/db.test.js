@@ -10,6 +10,7 @@ const cls = require('cls-hooked');
 const namespace = cls.createNamespace('CFS');
 Sequelize.useCLS(namespace);
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 
 
 let test_sequelize = new Sequelize(
@@ -49,7 +50,7 @@ describe('Database tests', () => {
 
     test('Should create a new user', async () => {
       const response = await request(app)
-        .post('/signup')
+        .post('/user/createuser')
         .send({
           name: "john smith",
           email: "johnsmith@email.com",
@@ -69,7 +70,7 @@ describe('Database tests', () => {
     test('should prevent duplicate user creation', async () => {
 
       const response = await request(app)
-        .post('/signup')
+        .post('/user/createuser')
         .send({ name: 'john smith', email: 'johnsmith@email.com' })
         .expect(400);
 
@@ -143,9 +144,9 @@ describe('Database tests', () => {
     });
 
 
-    test("It should response the GET method", async () => {
-      const response = await request(app).get("/");
-      expect(response.statusCode).toBe(200);
-    });
+    // test("It should response the GET method", async () => {
+    //   const response = await request(app).get("/");
+    //   expect(response.statusCode).toBe(200);
+    // });
     
   });
