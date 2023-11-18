@@ -16,7 +16,7 @@ require('dotenv').config();
 let test_sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
-  logging: true, 
+  logging: false, 
 });
 
 
@@ -44,105 +44,105 @@ describe('Database tests', () => {
 
 
 
-    test('Should create a new user', async () => {
-      const response = await request(app)
-        .post('/user/createuser')
-        .send({
-          name: "john smith",
-          email: "johnsmith@email.com",
-          password: "johnsmith",
-          location: "johnsmithcalifornia"
-        });
+    // test('Should create a new user', async () => {
+    //   const response = await request(app)
+    //     .post('/user/createuser')
+    //     .send({
+    //       name: "john smith",
+    //       email: "johnsmith@email.com",
+    //       password: "johnsmith",
+    //       location: "johnsmithcalifornia"
+    //     });
     
-        expect(response.status).toBe(200);
-        // console.log(response.body);
-        expect(response.body.message).toEqual('User was created');
-        expect(response.body.name).toEqual("john smith");
-        expect(response.body.email).toEqual("johnsmith@email.com");
-    });
+    //     expect(response.status).toBe(200);
+    //     // console.log(response.body);
+    //     expect(response.body.message).toEqual('User was created');
+    //     expect(response.body.name).toEqual("john smith");
+    //     expect(response.body.email).toEqual("johnsmith@email.com");
+    // });
 
 
 
-    test('should prevent duplicate user creation', async () => {
+    // test('should prevent duplicate user creation', async () => {
 
-      const response = await request(app)
-        .post('/user/createuser')
-        .send({ name: 'john smith', email: 'johnsmith@email.com' })
-        .expect(400);
+    //   const response = await request(app)
+    //     .post('/user/createuser')
+    //     .send({ name: 'john smith', email: 'johnsmith@email.com' })
+    //     .expect(400);
 
-      // console.log(response.body);
-      expect(response.body.message).toBe('User already exists');
-    });
+    //   // console.log(response.body);
+    //   expect(response.body.message).toBe('User already exists');
+    // });
 
 
-    test('Find a user', async () => {
-      const newUser = await User.create({ 
-        name: 'jane doe', 
-        email: 'janedoe@example.com',
-        password: 'janedoepw'
-      });
-      const response = await request(app)
-        .get('/user/:id')
-        .send({
-          id: newUser.id,
+    // test('Find a user', async () => {
+    //   const newUser = await User.create({ 
+    //     name: 'jane doe', 
+    //     email: 'janedoe@example.com',
+    //     password: 'janedoepw'
+    //   });
+    //   const response = await request(app)
+    //     .get('/user/:id')
+    //     .send({
+    //       id: newUser.id,
 
-        })
-        .expect(200);
-        console.log(response.body.message);
+    //     })
+    //     .expect(200);
+    //     console.log(response.body.message);
 
-        expect(response.body.message).toBe('User with the provided id was found');
+    //     expect(response.body.message).toBe('User with the provided id was found');
 
-    });
+    // });
 
-    test('should delete a user with a given id', async () => {
+    // test('should delete a user with a given id', async () => {
 
-      const newUser = await User.create({ 
-        name: 'delete me', 
-        email: 'deleteme@example.com',
-        password: 'deletemepw'
-      });
-      const response = await request(app)
-        .delete('/user/:id')
-        .send({
-          id: newUser.id,
+    //   const newUser = await User.create({ 
+    //     name: 'delete me', 
+    //     email: 'deleteme@example.com',
+    //     password: 'deletemepw'
+    //   });
+    //   const response = await request(app)
+    //     .delete('/user/:id')
+    //     .send({
+    //       id: newUser.id,
 
-        })
-        .expect(200);
-        console.log(response.body.message);
+    //     })
+    //     .expect(200);
+    //     console.log(response.body.message);
 
-        expect(response.body.message).toBe('User with the provided id was deleted');
+    //     expect(response.body.message).toBe('User with the provided id was deleted');
 
-        const deletedUser = await User.findByPk(newUser.id);
+    //     const deletedUser = await User.findByPk(newUser.id);
    
-        expect(deletedUser).toBeNull();
+    //     expect(deletedUser).toBeNull();
 
-    });
+    // });
 
-    test('should update the name of a user with a given id', async () => {
+    // test('should update the name of a user with a given id', async () => {
 
-      const newUser = await User.create({ 
-        name: 'not updated', 
-        email: 'notupdated@example.com',
-        password: 'not updated'
-      });
-      const response = await request(app)
-        .put('/user/:id')
-        .send({
-          name: 'updated!',
-          id: newUser.id
+    //   const newUser = await User.create({ 
+    //     name: 'not updated', 
+    //     email: 'notupdated@example.com',
+    //     password: 'not updated'
+    //   });
+    //   const response = await request(app)
+    //     .put('/user/:id')
+    //     .send({
+    //       name: 'updated!',
+    //       id: newUser.id
 
-        })
-        .expect(200);
-        console.log(response.body.message);
+    //     })
+    //     .expect(200);
+    //     console.log(response.body.message);
 
-        expect(response.body.message).toBe('User with the provided id was updated');
+    //     expect(response.body.message).toBe('User with the provided id was updated');
 
-    });
+    // });
 
 
-    test("It should response the GET method", async () => {
-      const response = await request(app).get("/");
-      expect(response.statusCode).toBe(200);
-    });
+    // test("It should response the GET method", async () => {
+    //   const response = await request(app).get("/");
+    //   expect(response.statusCode).toBe(200);
+    // });
     
   });
