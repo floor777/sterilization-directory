@@ -37,7 +37,7 @@ describe('Database tests', () => {
       // process.env.NODE_ENV = 'prod';
        await test_sequelize.close();
       // console.log("NODE_ENV set to: " + process.env.NODE_ENV);
-      console.log('done after all')
+      console.log('done after all!')
     });
   
     test('should confirm the connection to the database', () => {
