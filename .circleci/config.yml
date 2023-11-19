@@ -31,7 +31,7 @@ jobs:
           name: Run tests on server image
           command: |
 
-            docker-compose up -d && cd serer && npm run test
+            docker-compose up -d && cd server && npm run test
             echo "hello world"
             docker-compose down
       - run:
