@@ -24,12 +24,14 @@ describe('Database tests', () => {
 
 
     beforeAll(async () => {
+      console.log('reached before')
       // Establish the database connection
       await test_sequelize.authenticate();
       
     });
   
     afterAll(async () => {
+      console.log('reached after')
       // Close the database connection
       await User.destroy({ where: {} });
       process.env.NODE_ENV = 'prod';
