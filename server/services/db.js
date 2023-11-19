@@ -11,11 +11,11 @@ console.log('Initializing database');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 console.log("checkz")
 console.log(process.env.test.length);
-console.log(process.env.DATABASE_HOSTNAME === undefined)
-console.log(process.env.DATABASE_USERNAME.length)
-console.log(process.env.DATABASE_HOSTNAME.length)
-console.log(process.env.DATABASE_PASSWORD.length)
-console.log(process.env.DATABASE_NAME.length)
+console.log(process.env.DATABASE_HOSTNAME_PROD === undefined)
+console.log(process.env.DATABASE_USERNAME_PROD.length)
+console.log(process.env.DATABASE_HOSTNAME_PROD.length)
+console.log(process.env.DATABASE_PASSWORD_PROD.length)
+console.log(process.env.DATABASE_NAME_PROD.length)
 
   sequelize = new Sequelize(
     process.env.DATABASE_NAME,
