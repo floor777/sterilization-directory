@@ -63,7 +63,7 @@ describe('Database tests', () => {
           password: "johnsmith",
           location: "johnsmithcalifornia"
         });
-        console.log("creat euser " + response.serverError)
+        console.log("creat euser " + response.text)
     
         expect(response.status).toBe(200);
         // console.log(response.body);
