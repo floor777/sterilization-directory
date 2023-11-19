@@ -21,7 +21,8 @@ jobs:
           name: Run tests on server image
           command: |
 
-            cd client && ls && docker run $CLIENT_IMAGE_NAME:latest npm run test && cd .. && cd server && ls && docker run $SERVER_IMAGE_NAME:latest npm run test
+            docker compose up &&  npm run test
+            docker compose down
       - run:
           name: Run tests on client image
           command: |
