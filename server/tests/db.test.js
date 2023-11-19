@@ -26,7 +26,11 @@ describe('Database tests', () => {
     beforeAll(async () => {
       console.log('reached before')
       // Establish the database connection
-      await test_sequelize.authenticate();
+      await test_sequelize.authenticate().then(() => {
+        console.log('SQLite connection has been established successfully.');
+    }).catch((error) => {
+        console.error('Unable to connect to the database: ', error );
+    });
       
     });
   
