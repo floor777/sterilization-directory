@@ -33,10 +33,10 @@ describe('Database tests', () => {
     afterAll(async () => {
       console.log('reached after')
       // Close the database connection
-      await User.destroy({ where: {} });
-      process.env.NODE_ENV = 'prod';
-      await test_sequelize.close();
-      console.log("NODE_ENV set to: " + process.env.NODE_ENV);
+      // await User.destroy({ where: {} });
+      // process.env.NODE_ENV = 'prod';
+      // await test_sequelize.close();
+      // console.log("NODE_ENV set to: " + process.env.NODE_ENV);
       
     });
   
