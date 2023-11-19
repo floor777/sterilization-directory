@@ -27,12 +27,11 @@ jobs:
           name: Build images of services declared in docker-compose.yml
           command: |
             cd server && docker build -t $SERVER_IMAGE_NAME:latest . --build-arg DATABASE_PASSWORD_PROD=$DATABASE_PASSWORD_PROD --build-arg DATABASE_USERNAME_PROD=$DATABASE_USERNAME_PROD --build-arg DATABASE_HOSTNAME_PROD=$DATABASE_HOSTNAME_PROD --build-arg test=$test --build-arg DATABASE_NAME_PROD=$DATABASE_NAME_PROD && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
-      # - run:
-      #     name: Run tests on server image
-      #     command: |
+      - run:
+          name: Run tests on server image
+          command: |
 
-      #       docker-compose up -d && npm run test
-      #       docker-compose down
+            cd server && ls && docker run $SERVER_IMAGE_NAME:latest npm run test
       - run:
           name: Run tests on client image
           command: |
@@ -79,10 +78,10 @@ jobs:
             SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
 
             # Tag and push Docker images to Azure Container Registry
-            docker tag $CLIENT_IMAGE_NAME:test $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
-            docker tag $SERVER_IMAGE_NAME:test $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
-            docker push $CLIENT_IMAGE_NAME:$CLIENT_IMAGE_TAG
-            docker push $SERVER_IMAGE_NAME:$SERVER_IMAGE_TAG
+            docker tag $CLIENT_IMAGE_NAME:test $CLIENT_IMAGE_NAME:latest
+            docker tag $SERVER_IMAGE_NAME:test $SERVER_IMAGE_NAME:latest
+            docker push $CLIENT_IMAGE_NAME:latest
+            docker push $SERVER_IMAGE_NAME:latest
 
             # Restart Azure App Services
             az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
