@@ -35,9 +35,9 @@ describe('Database tests', () => {
       // Close the database connection
       // await User.destroy({ where: {} });
       // process.env.NODE_ENV = 'prod';
-      // await test_sequelize.close();
+       await test_sequelize.close();
       // console.log("NODE_ENV set to: " + process.env.NODE_ENV);
-      
+      console.log('done after all')
     });
   
     test('should confirm the connection to the database', () => {
