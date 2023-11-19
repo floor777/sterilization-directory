@@ -14,6 +14,16 @@ jobs:
       - setup_remote_docker
 
       - run:
+          name: Install Docker Compose
+          environment:
+            COMPOSE_VERSION: '1.29.2'
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+
+      - run:
           name: Build images of services declared in docker-compose.yml
           command: |
             cd server && docker build -t $SERVER_IMAGE_NAME:latest . --build-arg DATABASE_PASSWORD_PROD=$DATABASE_PASSWORD_PROD --build-arg DATABASE_USERNAME_PROD=$DATABASE_USERNAME_PROD --build-arg DATABASE_HOSTNAME_PROD=$DATABASE_HOSTNAME_PROD --build-arg test=$test --build-arg DATABASE_NAME_PROD=$DATABASE_NAME_PROD && cd .. && cd client && docker build -t $CLIENT_IMAGE_NAME:latest .
