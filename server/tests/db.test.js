@@ -103,6 +103,7 @@ describe('Database tests', () => {
         email: 'deleteme@example.com',
         password: 'deletemepw'
       });
+      console.log("asdsa"+ newUser.id);
       const response = await request(app)
         .delete('/user/:id')
         .send({
@@ -115,7 +116,8 @@ describe('Database tests', () => {
         expect(response.body.message).toBe('User with the provided id was deleted');
 
         const deletedUser = await User.findByPk(newUser.id);
-   
+        console.log(deletedUser.name + "yxy")
+        console.log(deletedUser + 'sad');
         expect(deletedUser).toBeNull();
 
     });
