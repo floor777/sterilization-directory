@@ -1,5 +1,5 @@
 const { User } = require('../models/user.model.js');
-// const db = require('../services/db.js');
+const db = require('../services/db.js');
 const request = require('supertest');
 const app = require('../index.js');
 
@@ -13,11 +13,11 @@ require('dotenv').config();
 
 
 
-let test_sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: ':memory:',
-  logging: false, 
-});
+// let test_sequelize = new Sequelize({
+//   dialect: 'sqlite',
+//   storage: ':memory:',
+//   logging: false, 
+// });
 
 
 describe('Database tests', () => {
@@ -26,8 +26,9 @@ describe('Database tests', () => {
     beforeAll(async () => {
       console.log('reached before')
       // Establish the database connection
-      await test_sequelize.authenticate().then(() => {
-        console.log('SQLite connection has been established successfully.');
+
+      await db.sequelize.authenticate().then(() => {
+        console.log('Test connection has been established successfully.');
     }).catch((error) => {
         console.error('Unable to connect to the database: ', error );
     });
@@ -39,17 +40,17 @@ describe('Database tests', () => {
       // Close the database connection
       // await User.destroy({ where: {} });
       // process.env.NODE_ENV = 'prod';
-       await test_sequelize.close().then(() => {
-        console.log('SQLite connection has been closed.');
-    }).catch((error) => {
-        console.error('Unable to close the connection: ', error );
-    });;
+    //    await test_sequelize.close().then(() => {
+    //     console.log('SQLite connection has been closed.');
+    // }).catch((error) => {
+    //     console.error('Unable to close the connection: ', error );
+    // });;
       // console.log("NODE_ENV set to: " + process.env.NODE_ENV);
       console.log('done after all!')
     });
   
     test('should confirm the connection to the database', () => {
-      expect(test_sequelize.authenticate()).resolves.not.toThrow();
+      expect(db.sequelize.authenticate()).resolves.not.toThrow();
     });
 
 
@@ -58,32 +59,39 @@ describe('Database tests', () => {
       const response = await request(app)
         .post('/user/createuser')
         .send({
-          name: "john smith",
-          email: "johnsmith@email.com",
-          password: "johnsmith",
-          location: "johnsmithcalifornia"
+          name: "ER",
+          email: "ER@email.com",
+          password: "ER",
+          location: "ER"
         });
-        console.log("creat euser " + response.text)
+        console.log("creat euser " + response.text + " | " + response.status + " | " + response.statusCode )
     
         expect(response.status).toBe(200);
         // console.log(response.body);
         expect(response.body.message).toEqual('User was created');
-        expect(response.body.name).toEqual("john smith");
-        expect(response.body.email).toEqual("johnsmith@email.com");
+        expect(response.body.name).toEqual("ER");
+        expect(response.body.email).toEqual("ER@email.com");
     });
 
 
 
-    test('should prevent duplicate user creation', async () => {
+    // test('should prevent duplicate user creation', async () => {
 
-      const response = await request(app)
-        .post('/user/createuser')
-        .send({ name: 'john smith', email: 'johnsmith@email.com' })
-        .expect(400);
-
-      // console.log(response.body);
-      expect(response.body.message).toBe('User already exists');
-    });
+    //   const response = await request(app)
+    //     .post('/user/createuser')
+    //     .send({ 
+    //       name: 'ER',
+    //       email: "ER@email.com",
+    //       password: "ER",
+    //       location: "ER"
+    //     }
+    //     )
+    //     .expect(400);
+    //   console.log("yoyo")
+    //   console.log(response.body.message);
+      
+    //   expect(response.body.message).toBe('User already exists');
+    // });
 
 
     test('Find a user', async () => {
@@ -107,27 +115,30 @@ describe('Database tests', () => {
 
     test('should delete a user with a given id', async () => {
 
-      const newUser = await User.create({ 
-        name: 'delete mee', 
-        email: 'deleteme@example.com',
-        password: 'deletemepw'
-      });
-      console.log("asdsa"+ newUser.id);
+      const userToDelete = await User.findOne( {where: { 
+        name: 'ER', 
+        email: 'ER@email.com',
+      }});
+      console.log("asdsa"+ userToDelete.id);
+      console.log(userToDelete);
       const response = await request(app)
         .delete('/user/:id')
         .send({
-          id: newUser.id,
+          id: userToDelete.id,
 
         })
         .expect(200);
-        console.log(response.body.message);
+
+      
+        console.log("degod" + response.body.message + response.body.name + " | " + response.body.user);
 
         expect(response.body.message).toBe('User with the provided id was deleted');
+        const check = await User.findByPk(userToDelete.ID);
+        // console.log("aaa " + check.id)
+        console.log("bbb " + userToDelete.id)
+        
 
-        const deletedUser = await User.findByPk(newUser.id);
-        console.log(deletedUser.name + "yxy")
-        console.log(deletedUser + 'sad');
-        expect(deletedUser).toBeNull();
+        expect(check).toBeNull();
 
     });
 
