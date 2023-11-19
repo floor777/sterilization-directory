@@ -16,6 +16,7 @@ console.log(process.env.DATABASE_USERNAME_PROD.length)
 console.log(process.env.DATABASE_HOSTNAME_PROD.length)
 console.log(process.env.DATABASE_PASSWORD_PROD.length)
 console.log(process.env.DATABASE_NAME_PROD.length)
+console.log(process.env.PASSPORT_SECRET.length);
 
   sequelize = new Sequelize(
     process.env.DATABASE_NAME_PROD,
