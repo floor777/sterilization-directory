@@ -99,7 +99,7 @@ describe('Database tests', () => {
     test('should delete a user with a given id', async () => {
 
       const newUser = await User.create({ 
-        name: 'delete me', 
+        name: 'delete mee', 
         email: 'deleteme@example.com',
         password: 'deletemepw'
       });
