@@ -18,12 +18,12 @@ console.log(process.env.DATABASE_PASSWORD_PROD.length)
 console.log(process.env.DATABASE_NAME_PROD.length)
 
   sequelize = new Sequelize(
-    process.env.DATABASE_NAME,
-    process.env.DATABASE_USERNAME,
-    process.env.DATABASE_PASSWORD,
+    process.env.DATABASE_NAME_PROD,
+    process.env.DATABASE_USERNAME_PROD,
+    process.env.DATABASE_PASSWORD_PROD,
     
     {
-      host: process.env.DATABASE_HOSTNAME,
+      host: process.env.DATABASE_HOSTNAME_PROD,
       dialect: 'mysql',
       port: 3306,
             
