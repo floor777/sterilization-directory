@@ -28,7 +28,7 @@ function Signup() {
           location: signupLocation
         },
         withCredentials: true,
-        url: import.meta.env.VITE_SERVER_URL +"/user/createuser"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/user/createuser"
               
       })
       .then(response => {
