@@ -8,7 +8,7 @@ const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: import.meta.env.VITE_SERVER_URL + "/auth/currentuser"
+    url: "http://localhost:3000/auth/currentuser/auth/currentuser"
   });
 };
 
@@ -27,7 +27,7 @@ function Login() {
         },
         withCredentials: true,
 
-        url: import.meta.env.VITE_SERVER_URL + "/auth/login"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/login"
               
       })
       .then(response => {
@@ -45,7 +45,7 @@ function Login() {
           console.log('Non-200 response recorded in login.jsx');
         }
       }).catch(err => {
-        console.log(err.response.data);
+        console.log(err);
       });
     };
 
