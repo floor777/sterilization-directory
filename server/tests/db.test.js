@@ -12,12 +12,12 @@ Sequelize.useCLS(namespace);
 require('dotenv').config();
 
 
-
+console.log("s")
 // let test_sequelize = new Sequelize({
 //   dialect: 'sqlite',
 //   storage: ':memory:',
 //   logging: false, 
-// })
+// })s
 
 
 describe('Database tests', () => {
