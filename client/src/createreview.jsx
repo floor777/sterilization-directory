@@ -25,7 +25,7 @@ const CreateReview = ({ getUser, currentId, setReviews, getReviewsByMarkerId }) 
 
       },
       withCredentials: true,
-      url: "http://localhost:3000/review/create"
+      url: "https://sterilizationdirectoryserver.azurewebsites.net/review/create"
     })
     .then(async () => {
 

@@ -11,11 +11,14 @@ const RequireAuth = ({ children }) => {
         async function fetchData() {
           try {
             const authenticated = await getAuthenticationStatus();
+            console.log(authenticated);
 
             if (authenticated) {
+              console.log("it was authenticated");
               setAuthenticated(true);
             } 
             else {
+              console.log("it was not authenticated it was cap");
               navigate('/');
             }
           } 
@@ -30,13 +33,16 @@ const RequireAuth = ({ children }) => {
 
 
     const getAuthenticationStatus = async () => {
+      console.log("in get authentication status")
 
         try {
             const response = await axios({
                 method: "get",
                 withCredentials: true,
-                url: "http://localhost:3000/auth/isauthenticated"
+                url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/isauthenticated"
+                
             })
+            console.log("Response.data was: " + response.data);
 
             return response.data ? true : false
 
