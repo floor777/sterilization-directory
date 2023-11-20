@@ -75,8 +75,8 @@ jobs:
             #SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
 
             docker images
-            az acr repository show-tags --name sterdirregistry --repository sterilization-directory-client-fixed
-            az acr repository show-tags --name sterdirregistry --repository sterilization-directory-server
+            #az acr repository show-tags --name sterdirregistry --repository sterilization-directory-client-fixed
+            #az acr repository show-tags --name sterdirregistry --repository sterilization-directory-server
 
             # Tag and push Docker images to Azure Container Registry
             #docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
