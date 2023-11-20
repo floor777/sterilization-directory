@@ -17,7 +17,7 @@ require('dotenv').config();
 //   dialect: 'sqlite',
 //   storage: ':memory:',
 //   logging: false, 
-// });
+// })
 
 
 describe('Database tests', () => {

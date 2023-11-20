@@ -25,6 +25,7 @@ jobs:
       - run:
           name: Run tests on server image
           command: |
+            docker images
 
             cd server && ls && docker run $SERVER_IMAGE_NAME:latest npm run test
       - run:
@@ -60,6 +61,7 @@ jobs:
       - run:
           name: Push Docker Images to Azure Container Registry
           command: |
+            docker images
             # Log in to Azure CLI with service principal credentials 
             docker login $ACR_NAME -u $ACR_USERNAME -p $ACR_PASSWORD
             
@@ -72,6 +74,10 @@ jobs:
             #CLIENT_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
             #SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
 
+            docker images
+            az acr repository show-tags --name sterdirregistry --repository sterilization-directory-client-fixed
+            az acr repository show-tags --name sterdirregistry --repository sterilization-directory-server
+
             # Tag and push Docker images to Azure Container Registry
             #docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
             #docker tag $SERVER_IMAGE_NAME:latest $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
@@ -80,7 +86,7 @@ jobs:
 
             # Restart Azure App Services
             az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
-            az webapp restart --name sterilizationdirectoryclient --resource-group SDResourceGroup
+            az webapp restart --name sterilizationdirectory --resource-group SDResourceGroup
 
 workflows:
   build-master:
