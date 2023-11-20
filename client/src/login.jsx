@@ -8,7 +8,7 @@ const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: "http://localhost:3000/auth/currentuser"
+    url: import.meta.env.VITE_SERVER_URL + "/auth/currentuser"
   });
 };
 
@@ -26,25 +26,26 @@ function Login() {
           password: loginPassword,
         },
         withCredentials: true,
-        
-        url: "http://localhost:3000/auth/login"
+
+        url: import.meta.env.VITE_SERVER_URL + "/auth/login"
               
       })
       .then(response => {
-        if(response.config.method === "post" && response.data.message == "Login was successful" ) {
+        if(response.config.method === "post" && response.data.message == "Login was successful my friend" ) {
           console.log(response.data);
           console.log('Login was successful');
           navigate("/dashboard");
           
         }
         else  {
+          console.log(response);
           console.log(response.config.method);
           console.log(response.status);
           console.log(response.data);
           console.log('Non-200 response recorded in login.jsx');
         }
       }).catch(err => {
-        console.log(err);
+        console.log(err.response.data);
       });
     };
 
