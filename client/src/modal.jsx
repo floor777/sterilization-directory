@@ -21,7 +21,7 @@ const Modal = ({reviewId, setReviews, getReviewsByMarkerId}) => {
               reviewId: reviewId
             },
             withCredentials: true,
-            url: "http://localhost:3000/review/findareview"
+            url: "https://sterilizationdirectoryserver.azurewebsites.net/review/findareview"
           })
           
           return response.data.review;
@@ -45,8 +45,9 @@ const Modal = ({reviewId, setReviews, getReviewsByMarkerId}) => {
           reviewId: reviewId,   
         },
         withCredentials: true,
-        url: "http://localhost:3000/review/update"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/review/update"
       })
+      //
     
       
       let refreshedReviews = await getReviewsByMarkerId(selectedReview.markerId);
@@ -85,7 +86,7 @@ const Modal = ({reviewId, setReviews, getReviewsByMarkerId}) => {
 
             </div>
             
-            <button onClick={() => {getReviewById(reviewId)}}> get review id</button>
+            {/* <button onClick={() => {getReviewById(reviewId)}}> get review id</button> */}
             <button onClick={() => {editReview(reviewId)}}> submit changes</button>
             <button className="close-modal" onClick={toggleModal}>
                X

@@ -12,7 +12,7 @@ const Review = ({ review, getUser, setReviews, reviews, getReviewsByMarkerId }) 
           reviewId: reviewId
         },
         withCredentials: true,
-        url: import.meta.env.VITE_SERVER_URL + "/review/delete"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/review/delete"
       })
       await setReviews(reviews.filter((review) => review.reviewId !== reviewId));
 

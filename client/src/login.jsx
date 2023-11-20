@@ -17,6 +17,7 @@ function Login() {
     const [loginPassword, setLoginPassword] = useState("");
     const navigate = useNavigate();
     const login = () => {
+      //sadsa
 
       axios({
 
@@ -27,7 +28,7 @@ function Login() {
         },
         withCredentials: true,
 
-        url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/login"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/autH/login"
               
       })
       .then(response => {

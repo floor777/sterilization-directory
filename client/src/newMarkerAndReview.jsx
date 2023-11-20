@@ -25,7 +25,7 @@ const NewMarkerAndReview = ({ setCurrentId, getMarkers, getUser,
           title: address[0].formatted_address
         },
         withCredentials: true,
-        url: "http://localhost:3000/marker/build"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/marker/build"
       })
 
       return response.data.marker
@@ -53,7 +53,7 @@ const NewMarkerAndReview = ({ setCurrentId, getMarkers, getUser,
 
       },
       withCredentials: true,
-      url: "http://localhost:3000/review/create"
+      url: "https://sterilizationdirectoryserver.azurewebsites.net/review/create"
     })
     .then(async () => {
       setCurrentId(marker.id);

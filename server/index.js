@@ -29,7 +29,7 @@ let reviewRouter = require('./routes/review.js');
 
 // CORS on the localhost port used for the react client app
 app.use(cors({
-  origin: "http://localhost:80",
+  origin: "https://sterilizationdirectoryserver.azurewebsites.net",
   credentials: true
 }));
 

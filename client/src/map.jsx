@@ -22,7 +22,8 @@ import axios from "axios";
 
 export default function Home() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+
+    googleMapsApiKey: 'AIzaSyC7ryzvQQ2OgEegvo1Og4OzLt0Hwq1EyQw',
     libraries: ["places"]
   });
 
@@ -43,7 +44,7 @@ function Map() {
     const response = await axios({
       method: "get",
       withCredentials: true,
-      url: "http://localhost:3000/auth/currentuser"
+      url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/currentuser"
     })
     return response.data;
 
@@ -53,7 +54,7 @@ function Map() {
     axios({
       method: "get",
       withCredentials: true,
-      url: "http://localhost:3000/marker/all"
+      url: "https://sterilizationdirectoryserver.azurewebsites.net/marker/all"
     })
     .then((response) => {
       const markers = response.data
@@ -69,7 +70,7 @@ function Map() {
       let response = await axios({
         method: "get",
         withCredentials: true,
-        url: "http://localhost:3000/review/all"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/review/all"
       })
       const reviews = response.data
       return reviews;
@@ -90,7 +91,7 @@ function Map() {
           markerId: currentId
         },
         withCredentials: true,
-        url: "http://localhost:3000/review/getReviewsByMarkerId"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/review/getReviewsByMarkerId"
       });
 
       return response.data;
@@ -171,7 +172,7 @@ function Map() {
      
     </GoogleMap>
 
-    <button onClick={() => {getAllReviews()}}>Get all reviews</button>
+    {/* <button onClick={() => {getAllReviews()}}>Get all reviews</button> */}
 
     {(currentId !== 0 && reviews.length >= 0) && 
     <CreateReview
@@ -249,7 +250,7 @@ const PlacesAutocomplete = ({ markerExists, setSelected,
             lng: lng
           },
           withCredentials: true,
-          url: "http://localhost:3000/marker/exists"
+          url: "https://sterilizationdirectoryserver.azurewebsites.net/marker/exists"
         });
 
         if (response.config.method === "get" && response.data.message === "Marker at this lat/lng already exists") {
@@ -274,7 +275,7 @@ const PlacesAutocomplete = ({ markerExists, setSelected,
             lng: lng
           },
           withCredentials: true,
-          url: "http://localhost:3000/marker/exists"
+          url: "https://sterilizationdirectoryserver.azurewebsites.net/marker/exists"
         });
     
         if (response.config.method === "get" && response.data.message === "Marker at this lat/lng does not exist yet") {
