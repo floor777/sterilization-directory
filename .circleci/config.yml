@@ -12,16 +12,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-
+      
       - run:
-          name: Install Docker Compose
-          environment:
-            COMPOSE_VERSION: '1.29.2'
+          name: Install Azure CLI
           command: |
-            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-
+            sudo apt-get update && sudo apt-get install -y azure-cli
 
       - run:
           name: Build images of services declared in docker-compose.yml
@@ -80,8 +75,8 @@ jobs:
             # Tag and push Docker images to Azure Container Registry
             #docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
             #docker tag $SERVER_IMAGE_NAME:latest $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
-            #docker push $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
-            #docker push $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
+            docker push $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
+            docker push $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
 
             # Restart Azure App Services
             az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
