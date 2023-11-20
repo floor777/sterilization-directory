@@ -14,9 +14,19 @@ const login = (req, res, next) => {
       if (err) {
         return next(err);
       }
+      // if(req.user) {
+      //   console.log(req.user);
+      //   console.log("why is it not authenticating now hm");
+      //   res.status(200).send({
+      //     message: "Req user found"
+      //   })
+      // }
       if (req.isAuthenticated()) {
+        console.log(req.isAuthenticated());
+        console.log(req.user.name);
+        console.log('meow');
         res.status(200).send({
-          message: "Login was successful"
+          message: "Login was successful my friend"
         });
       } else {
         res.sendStatus(404);
