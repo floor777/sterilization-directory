@@ -8,7 +8,7 @@ const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: import.meta.env.VITE_SERVER_URL + "/auth/currentuser"
+    url: process.env.VITE_SERVER_URL + "/auth/currentuser"
   });
 };
 
@@ -27,7 +27,7 @@ function Login() {
         },
         withCredentials: true,
 
-        url: import.meta.env.VITE_SERVER_URL + "/auth/login"
+        url: process.env.VITE_SERVER_URL + "/auth/login"
               
       })
       .then(response => {
