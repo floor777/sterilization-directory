@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      
+
       - run:
           name: Install Azure CLI
           command: |
@@ -75,8 +75,8 @@ jobs:
             # Tag and push Docker images to Azure Container Registry
             #docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
             #docker tag $SERVER_IMAGE_NAME:latest $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
-            docker push $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
-            docker push $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
+            docker push $CLIENT_IMAGE_NAME:latest
+            docker push $SERVER_IMAGE_NAME:latest
 
             # Restart Azure App Services
             az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
