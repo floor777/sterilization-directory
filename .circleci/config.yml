@@ -82,8 +82,8 @@ jobs:
             docker push $SERVER_IMAGE_NAME:latest
 
             # Restart Azure App Services
-            az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
-            az webapp restart --name sterilizationdirectory --resource-group SDResourceGroup
+            #az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
+            #az webapp restart --name sterilizationdirectory --resource-group SDResourceGroup
 
 workflows:
   build-master:
