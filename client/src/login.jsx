@@ -28,7 +28,7 @@ function Login() {
         },
         withCredentials: true,
 
-        url: "https://sterilizationdirectoryserver.azurewebsites.net/autH/login"
+        url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/login"
               
       })
       .then(response => {
