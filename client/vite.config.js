@@ -12,6 +12,6 @@ export default defineConfig({
     protocol: 'ws',
     host: true,
     strictPort: true,
-    port: 5173
+    port: 80
   }
 })

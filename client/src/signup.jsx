@@ -8,7 +8,7 @@ const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: "http://localhost:3000/currentuser"
+    url: import.meta.env.VITE_SERVER_URL + "/auth/currentuser"
   })
 };
 
@@ -28,7 +28,7 @@ function Signup() {
           location: signupLocation
         },
         withCredentials: true,
-        url: "http://localhost:3000/user/createuser"
+        url: import.meta.env.VITE_SERVER_URL +"/user/createuser"
               
       })
       .then(response => {
