@@ -74,14 +74,14 @@ jobs:
             SERVER_IMAGE_NAME=$ACR_NAME/sterilization-directory-server
 
             # Increment version numbers (TO DO)
-            CLIENT_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
-            SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+            #CLIENT_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
+            #SERVER_IMAGE_TAG=$(date +"%Y%m%d%H%M%S")
 
             # Tag and push Docker images to Azure Container Registry
-            docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
-            docker tag $SERVER_IMAGE_NAME:latest $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
-            docker push $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
-            docker push $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
+            #docker tag $CLIENT_IMAGE_NAME:latest $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
+            #docker tag $SERVER_IMAGE_NAME:latest $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
+            #docker push $CLIENT_IMAGE_NAME:CLIENT_IMAGE_TAG
+            #docker push $SERVER_IMAGE_NAME:SERVER_IMAGE_TAG
 
             # Restart Azure App Services
             az webapp restart --name sterilizationdirectoryserver --resource-group SDResourceGroup
