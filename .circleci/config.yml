@@ -70,7 +70,7 @@ jobs:
             
             # Set Azure Container Registry info
             ACR_NAME=sterdirregistry.azurecr.io
-            CLIENT_IMAGE_NAME=$ACR_NAME/sterilization-directory
+            CLIENT_IMAGE_NAME=$ACR_NAME/sterilization-directory-client-fixed
             SERVER_IMAGE_NAME=$ACR_NAME/sterilization-directory-server
 
             # Increment version numbers (TO DO)
