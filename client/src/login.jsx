@@ -8,7 +8,7 @@ const getUser = () => {
   axios({
     method: "get",
     withCredentials: true,
-    url: "http://localhost:3000/auth/currentuser/auth/currentuser"
+    url: import.meta.env.VITE_SERVER_URL + "/auth/currentuser"
   });
 };
 
@@ -27,7 +27,7 @@ function Login() {
         },
         withCredentials: true,
 
-        url: "https://sterilizationdirectoryserver.azurewebsites.net/auth/login"
+        url: import.meta.env.VITE_SERVER_URL + "/auth/login"
               
       })
       .then(response => {

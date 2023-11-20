@@ -12,7 +12,7 @@ const Review = ({ review, getUser, setReviews, reviews, getReviewsByMarkerId }) 
           reviewId: reviewId
         },
         withCredentials: true,
-        url: "http://localhost:3000/review/delete"
+        url: import.meta.env.VITE_SERVER_URL + "/review/delete"
       })
       await setReviews(reviews.filter((review) => review.reviewId !== reviewId));
 
@@ -43,12 +43,12 @@ const Review = ({ review, getUser, setReviews, reviews, getReviewsByMarkerId }) 
 
     return (
       <div>
-        <h3>Review ID: {review.reviewId}</h3>
-        <div id="love">
+
+        <div id="reviews">
           <p>Sex: {review.sex}</p>
           <p>Marital status: {review.maritalStatus}</p>
           <p>type: {review.type}</p>
-          <p>User id: {review.userId}</p>
+
           
 
         </div>
